@@ -19,10 +19,10 @@ class State(BaseModel, Base):
             from models import storage
             from models.city import City
             cities = storage.all(City)
-            state_city = {}
+            state_city = []
             for k, v in cities.items():
                 if self.id == v.state_id:
-                    state_city[k] = v
+                    state_cityappend(v)
             return state_city
         else:
             return State.cities
