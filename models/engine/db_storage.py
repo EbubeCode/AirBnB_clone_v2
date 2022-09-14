@@ -14,6 +14,7 @@ class DBStorage:
     def __init__(self):
         from models.base_model import Base
         from models.city import City
+        from models.user import User
         from models.state import State
         u = os.getenv('HBNB_MYSQL_USER')
         p = os.getenv('HBNB_MYSQL_PWD')
@@ -31,9 +32,10 @@ class DBStorage:
         """query database for cls"""
         from models.city import City
         from models.state import State
+        from models.user import User
         dic = {}
         if not cls:
-            cls = [City, State]
+            cls = [City, State, User]
         for obj in self.__session.query(cls).all():
             key = f'{type(obj).__name__}.{obj.id}'
             dic[key] = obj
@@ -57,6 +59,7 @@ class DBStorage:
         from models.base_model import Base
         from models.city import City
         from models.state import State
+        from models.user import User
 
         Base.metadata.create_all(self.__engine)
         factry = sessionmaker(bind=self.__engine)
