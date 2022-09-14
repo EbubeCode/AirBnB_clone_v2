@@ -17,6 +17,7 @@ class DBStorage:
         from models.user import User
         from models.state import State
         from models.review import Review
+        from models.amenity import Amenity
         from models.place import Place
         u = os.getenv('HBNB_MYSQL_USER')
         p = os.getenv('HBNB_MYSQL_PWD')
@@ -37,9 +38,10 @@ class DBStorage:
         from models.user import User
         from models.place import Place
         from models.review import Review
+        from models.amenity import Amenity
         dic = {}
         if not cls:
-            cls = [City, Place, State, User]
+            cls = [City, Review, Place, State, User, Amenity]
         for obj in self.__session.query(cls).all():
             key = f'{type(obj).__name__}.{obj.id}'
             dic[key] = obj
@@ -66,6 +68,7 @@ class DBStorage:
         from models.user import User
         from models.place import Place
         from models.review import Review
+        from models.amenity import Amenity
 
         Base.metadata.create_all(self.__engine)
         factry = sessionmaker(bind=self.__engine)

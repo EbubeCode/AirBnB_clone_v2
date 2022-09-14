@@ -2,7 +2,15 @@
 """ Place Module for HBNB project """
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Float, Integer, ForeignKey, String
+from sqlalchemy import Table
 from sqlalchemy.orm import relationship
+
+
+place_amenity = Table('place_amenity', Base.metadata,
+                      Column('place_id', ForeignKey('places.id'),
+                             primary_key=True),
+                      Column('amenity_id', ForeignKey('amenities.id'),
+                             primary_key=True))
 
 
 class Place(BaseModel, Base):
@@ -20,13 +28,15 @@ class Place(BaseModel, Base):
     longitude = Column(Float, nullable=True)
     reviews = relationship('Review', backref='place', cascade='delete')
     amenity_ids = []
+    amenities = relationship('Amenity', secondary=place_amenity,
+                             viewonly=False)
 
     @property
     def reviews(self):
         """getter attribute to show FileStorge relationship
         between place and reviews"""
+        from models import storage
         if type(storage).__name__ == 'FileStorage':
-            from models import storage
             from models.review import Review
             reviews = storage.all(Review)
             p_revs = []
@@ -36,3 +46,25 @@ class Place(BaseModel, Base):
             return p_revs
         else:
             return Place.reviews
+
+    @property
+    def amenities(self):
+        '''getter attribute to show FileStorge relationship
+        between place and reviews'''
+        from models import storage
+        if type(storage).__name__ == 'FileStorage':
+            from models.amenity import Amenity
+            amenities = storage.all(Amenity)
+            p_amen = []
+            for v in amenities.values():
+                if v.id in self.amenity_ids:
+                    p_amen.append(v)
+            return p_amen
+        else:
+            return Place.amenities
+
+    @amenities.setter
+    def amenities(self, ob):
+        '''setter attribute to add amenity_id'''
+        if type(obj).__name__ == 'Amenity':
+            self.amenity_ids.append(ob.id)

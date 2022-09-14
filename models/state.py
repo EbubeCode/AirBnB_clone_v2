@@ -15,8 +15,8 @@ class State(BaseModel, Base):
     def cities(self):
         """getter attribute to show FileStorge relationship
         between city and state"""
+        from models import storage
         if type(storage).__name__ == 'FileStorage':
-            from models import storage
             from models.city import City
             cities = storage.all(City)
             state_city = []
