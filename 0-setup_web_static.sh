@@ -4,7 +4,9 @@
 sudo mkdir -p /data/web_static/releases/test/
 sudo mkdir -p /data/web_static/shared/
 
-sudo printf "<html>\n<head></head>\n<body>Hello World!</body><html>\n" > /data/web_static/releases/test/index.html
+sudo truncate -s 0 /data/web_static/releases/test/index.html
+printf "<html>\n<head></head>\n<body>Hello World!</body><html>\n" | sudo tee -a /data/web_static/releases/test/index.html \
+	>> /dev/null
 if [ -e /data/web_static/current ]; then
 	sudo rm /data/web_static/current
 fi
