@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 ''' Flask application '''
-from flask import Flask
+from flask import Flask, escape
 
 
 app = Flask(__name__)
@@ -21,7 +21,7 @@ def hbnb():
 @app.route('/c/<text>', strict_slashes=False)
 def fun(text):
     ''' path hbnb which returns a string'''
-    rep = text.replace('_', ' ')
+    rep = escape(text).replace('_', ' ')
     return f'C {rep}'
 
 
