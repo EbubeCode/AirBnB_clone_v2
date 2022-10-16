@@ -22,7 +22,7 @@ class State(BaseModel, Base):
             state_city = []
             for k, v in cities.items():
                 if self.id == v.state_id:
-                    state_cityappend(v)
+                    state_city.append(v)
             return state_city
         else:
             return State.cities

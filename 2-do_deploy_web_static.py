@@ -43,3 +43,4 @@ def do_deploy(archive_path):
     code = run(c)
     if code.return_code != 0:
         return False
+    return True

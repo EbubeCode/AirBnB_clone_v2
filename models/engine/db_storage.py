@@ -74,3 +74,7 @@ class DBStorage:
         factry = sessionmaker(bind=self.__engine)
         Session = scoped_session(factry)
         self.__session = Session()
+
+    def close(self):
+        '''calls remove method on self.__session'''
+        self.__session.close()
