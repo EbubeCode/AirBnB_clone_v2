@@ -21,8 +21,7 @@ def hbnb():
 @app.route('/c/<text>', strict_slashes=False)
 def fun(text):
     ''' path c which returns says c is fun'''
-    rep = escape(text).replace('_', ' ')
-    return f'C {rep}'
+    return 'C %s' % escape(text.replace('_', ' '))
 
 
 if __name__ == '__main__':
