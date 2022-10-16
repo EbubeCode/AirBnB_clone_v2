@@ -12,6 +12,7 @@ def tear_down(arg):
     '''tears down storage connection'''
     storage.close()
 
+
 @app.route('/states_list', strict_slashes=False)
 def states():
     '''gets the list of states'''
