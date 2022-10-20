@@ -16,6 +16,7 @@ class State(BaseModel, Base):
     cities = relationship('City', backref='state', cascade='delete')
 
     if s != 'db':
+        print("got here")
         @property
         def cities(self):
             """getter attribute to show FileStorge relationship
